@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/et_mobile"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:hint="请输入手机号"
+        android:background="@null"
+        android:layout_marginTop="10dp"
+        android:textColorHint="@color/C3"
+        android:textAppearance="@style/TextAppear.Theme.B1_Size18"/>
+
+    <EditText
+        android:id="@+id/et_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:hint="请输入登录密码"
+        android:background="@null"
+        android:textColorHint="@color/C3"
+        android:textAppearance="@style/TextAppear.Theme.B1_Size18"/>
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登录"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppear.Theme.B1_Size18"
+        android:background="@color/A2"/>
+
+    <TextView
+        android:id="@+id/tv_send_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="事件发送"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppear.Theme.B1_Size18"
+        android:background="@color/A2"/>
+
+    <TextView
+        android:id="@+id/tv_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/home"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppear.Theme.B1_Size18"
+        android:background="@color/A2"/>
+
+</LinearLayout>

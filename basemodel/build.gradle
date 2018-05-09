@@ -1,0 +1,39 @@
+apply plugin: 'com.android.library'
+
+def cfg=rootProject.ext.android
+
+android {
+    compileSdkVersion cfg.compileSdkVersion
+    buildToolsVersion cfg.buildToolsVersion
+    defaultConfig {
+        minSdkVersion cfg.minSdkVersion
+        targetSdkVersion cfg.targetSdkVersion
+        versionCode cfg.versionCode
+        versionName cfg.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        if (isDebug.toBoolean()) {
+            //debug模式
+            buildConfigField "String", "AlphaUrl", "\"${url["debug"]}\""
+        } else {
+            //release模式
+            buildConfigField "String", "AlphaUrl", "\"${url["release"]}\""
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    compile project(':librarymodel')
+}

@@ -1,0 +1,81 @@
+apply plugin: 'com.android.application'
+
+def cfg = rootProject.ext.android
+def librarys = rootProject.ext.dependencies
+def appId = rootProject.ext.appId
+
+android {
+    /*Error:Execution failed for task ':app:transformResourcesWithMergeJavaResForDebug'.
+>       More than one file was found with OS independent path 'META-INF/rxjava.properties'*/
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    compileSdkVersion cfg.compileSdkVersion
+    buildToolsVersion cfg.buildToolsVersion
+    /*
+    * Error:Execution failed for task ':app:transformClassesWithDexBuilderForDebug'.
+        > com.android.build.api.transform.TransformException: java.lang.IllegalStateException:
+        Dex archives: setting .DEX extension only for .CLASS files*/
+    dexOptions {
+        jumboMode = true
+    }
+    defaultConfig {
+        applicationId appId["app"]
+        minSdkVersion cfg.minSdkVersion
+        targetSdkVersion cfg.targetSdkVersion
+        versionCode cfg.versionCode
+        versionName cfg.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    sourceSets {
+        main {
+            if (isModuleRun.toBoolean()) {
+                manifest.srcFile 'src/main/debug/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                java {
+                    //release 时 debug 目录下文件不需要合并到主工程
+                    exclude '**/debug/**'
+                }
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //matchingFallbacks = ['release']
+        }
+        debug {
+            //matchingFallbacks = ['debug']
+        }
+    }
+}
+
+//编译期组件隔离,运行期组件按需依赖
+//app需要跟homeModel,customerModel,contactmodel,mineModel进行交互,所以在
+//运行期添加依赖
+if (!isModuleRun.toBoolean()) {
+    //获取当前运行的task
+    def tasks = project.gradle.startParameter.taskNames
+    for (String task : tasks) {
+        def upperName = task.toUpperCase()
+        //判断task是编译期还是运行期
+        if (upperName.contains("ASSEMBLE") || upperName.contains("INSTALL")) {
+            dependencies.add("compile", project.project(':' + 'homemodel'))
+            dependencies.add("compile", project.project(':' + 'customermodel'))
+            dependencies.add("compile", project.project(':' + 'contactmodel'))
+            dependencies.add("compile", project.project(':' + 'minemodel'))
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    //librarys.each { k, v -> compile v }
+    compile project(':routermodel')
+}

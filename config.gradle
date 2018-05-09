@@ -1,0 +1,39 @@
+/*
+* 在主项目的根目录下创建config.gradle文件
+* 在这里单独处理统一的依赖问题
+* 注意需要在根目录的build.gradle中进行引入*/
+ext{
+    android = [
+            compileSdkVersion:25,
+            minSdkVersion:19,
+            targetSdkVersion:25,
+            buildToolsVersion: "26.0.2",
+            versionCode:1,
+            versionName:"1.0",
+    ]
+
+    appId = [
+            "app" : "com.example.administrator.componentdemo",
+            "home" : "com.example.administrator.homemodel",
+            "customer" : "com.example.administrator.customermodel",
+            "contact" : "com.example.administrator.contactmodel",
+            "mine" : "com.example.administrator.minemodel"
+    ]
+
+    url = [
+            "debug" : "http://192.168.0.129:9080/dcrm-business-web/",
+            "release" : "http://183.129.178.44:8071/"
+    ]
+
+    //Version
+    supportLibrary = "25.3.1"
+    dependencies = [
+            //"appcompat"     : "com.android.support:appcompat-v7:${supportLibrary}",
+            "butterknife":'com.jakewharton:butterknife:8.4.0'
+    ]
+
+    annotdependencies = [
+            //"appcompat"     : "com.android.support:appcompat-v7:${supportLibrary}",
+            "butterknife":'com.jakewharton:butterknife-compiler:8.4.0'
+    ]
+}
