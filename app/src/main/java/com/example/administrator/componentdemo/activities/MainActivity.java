@@ -18,6 +18,7 @@ import com.example.routermodel.ReflectUtils;
 
 public class MainActivity extends BaseActivity<MainActivityPresenter,MainActivityModel> implements MainActivityContract.View{
 
+    //修改仓库名称
     FrameLayout tab_content;
     BottomBar bb_navigation;
 
